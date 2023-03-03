@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const AnecdoteList = () => {
   const selectedAnecdotes = useSelector(({anecdotes, filter}) => {
-    if (filter === '') {
+    if (filter.text === '') {
       return anecdotes
     }
-    return anecdotes.filter(a => a.content.includes(filter))
+    return anecdotes.filter(a => a.content.includes(filter.text))
   })
   const dispatch = useDispatch()
 
@@ -16,7 +16,7 @@ const AnecdoteList = () => {
   
   return (
     <div>
-      {selectedAnecdotes
+      {[...selectedAnecdotes]
         .sort((a, b) => b.votes - a.votes)
         .map(anecdote =>
           <div key={anecdote.id}>
