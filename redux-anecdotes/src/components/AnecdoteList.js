@@ -1,5 +1,5 @@
 import { voteOn } from '../reducers/anecdoteReducer'
-import { setNotifMessage, clearNotifMessage } from '../reducers/notifReducer'
+import { setNotification } from '../reducers/notifReducer'
 import { useSelector, useDispatch } from 'react-redux'
 
 const AnecdoteList = () => {
@@ -12,15 +12,9 @@ const AnecdoteList = () => {
   const dispatch = useDispatch()
 
   const vote = (id) => {
-      dispatch(voteOn(id))
-      dispatch(setNotifMessage(`you voted on "${
-        JSON.parse(
-          JSON.stringify(
-            selectedAnecdotes.filter(n=>n.id === id)
-          )
-        )[0].content
-      }"`))
-      setTimeout(() => dispatch(clearNotifMessage()), 5000)
+    dispatch(voteOn(id))
+    const anecdoteContent = JSON.parse(JSON.stringify(selectedAnecdotes.filter(n=>n.id === id)))[0].content
+    dispatch(setNotification(`you voted on "${anecdoteContent}"`, 5))
   }
   
   return (
