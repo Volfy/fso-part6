@@ -13,6 +13,8 @@ const App = () => {
     }
   })
 
+  
+
   const handleVote = (anecdote) => {
     updateAnecdoteMutation.mutate({...anecdote, votes: anecdote.votes + 1})
   }
